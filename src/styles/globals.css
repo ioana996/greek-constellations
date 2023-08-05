@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -23,5 +23,20 @@ body {
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+  rgb(var(--background-start-rgb));
+} */
+
+body {
+  /* --background-end-rgb: 0, 0, 139, 0.7;
+  background: rgb(var(--background-end-rgb)); */
+  background: linear-gradient(
+    to right,
+    rgba(4, 39, 71, 0.5),
+    rgba(8, 53, 94, 0.4),
+    rgba(29, 88, 143, 0.3),
+    rgba(28, 85, 138, 0.2),
+    rgba(29, 88, 143, 0.3),
+    rgba(8, 53, 94, 0.4),
+    rgba(4, 39, 71, 0.5)
+  );
 }
