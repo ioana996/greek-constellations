@@ -2,15 +2,22 @@ import React, { ReactElement, useState } from "react";
 import Image from "next/image";
 import { Constellation } from "./types";
 import { useSpring, animated } from "react-spring";
+import { useRouter } from "next/router";
 
 const Card = (constellation: Constellation) => {
+  const router = useRouter();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    router.push(`/${constellation.constellation}`);
+  };
+
   const [hoverProps, set] = useSpring(() => ({
     transform: `scale(1)`,
     from: { transform: `scale(0)` },
     config: {
-      tension: 400,
-      mass: 2,
-      velocity: 5,
+      tension: 800,
+      mass: 2.5,
     },
   }));
 
@@ -24,6 +31,7 @@ const Card = (constellation: Constellation) => {
       style={hoverProps}
       onMouseEnter={() => set(updateHover(true))}
       onMouseLeave={() => set(updateHover(false))}
+      onClick={handleClick}
     >
       <Image
         src={constellation.image}

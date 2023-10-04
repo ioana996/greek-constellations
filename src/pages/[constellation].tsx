@@ -4,10 +4,20 @@ import { Constellation } from "@/components/Card/types";
 import Image from "next/image";
 import cassiopeia from "assets/cassiopeia.jpg";
 import { GetStaticPaths, GetStaticProps } from "next";
+import { useRouter } from "next/router";
+import { constellations } from ".";
 
 const ConstellationPage = (starData: Constellation) => {
+  const router = useRouter();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    router.back();
+  };
+
   return (
     <div className="flex flex-col sm:flex-row justify-center items-center m-32 gap-4">
+      <button onClick={handleClick}>Back</button>
       <Image
         src={hehe}
         alt="cassiopeia"
@@ -23,58 +33,24 @@ const ConstellationPage = (starData: Constellation) => {
   );
 };
 
-const constellations: Constellation[] = [
-  {
-    constellation: "cassiopeia",
-    image: cassiopeia,
-    short:
-      "Cassiopeia is named after the queen of a country on the northern coast of Africa, Aethiopia (not modern Ethiopia). She boasted that she and her daughter Andromeda were more beautiful than the Nereids, the 50 sea nymph attendants of Thetis, the sea goddess, and Poseidon, the sea god.",
-    readTime: "20 MIN READ",
-  },
-  {
-    constellation: "taurus",
-    image: cassiopeia,
-    short:
-      "Cassiopeia is named after the queen of a country on the northern coast of Africa, Aethiopia (not modern Ethiopia). She boasted that she and her daughter Andromeda were more beautiful than the Nereids, the 50 sea nymph attendants of Thetis, the sea goddess, and Poseidon, the sea god.",
-    readTime: "20 MIN READ",
-  },
-];
+export const getAllConstellations = () =>
+  constellations.map((x) => ({
+    params: x,
+  }));
 
-export const getAllConstellations = () => {
-  constellations.map((c) => {
-    return {
-      // params: { constellation },
-      // fallback: false,
-      params: c.constellation,
-    };
-  });
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths<{
+  constellation: string;
+}> = async () => {
   const paths = getAllConstellations();
-  // console.log(paths);
-  // return {
-  //   paths,
-  //   fallback: false,
-  // };
-
   return {
-    // params: { constellation },
-    // fallback: false,
-    paths: [
-      { params: { constellation: "cassiopeia" } },
-      { params: { constellation: "taurus" } },
-      { params: { constellation: "aries" } },
-    ],
+    paths,
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps = async (params) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const constellation = constellations.find(
-    (e) =>
-      e.constellation ===
-      (params.params as unknown as Constellation).constellation
+    (e) => e.constellation === params?.constellation
   );
   return {
     props: constellation || constellations[0],
