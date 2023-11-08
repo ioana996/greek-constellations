@@ -4,18 +4,22 @@ import Logo from "../Logo/Logo";
 
 const Navigation = () => {
   return (
-    <div className="w-full h-16 bg-[#001730]">
-      <div className="w-16 h-16">
-        <Logo />
-      </div>
-      <ul>
-        <li>
-          <Link href="/cassiopeia">
-            <p>Constellation</p>
+    <nav className="h-16 bg-[#001424] sticky top-0 z-10">
+      <div className="flex items-center container mx-auto gap-5">
+        <div className="w-16 h-16">
+          <Link href="/">
+            <Logo />
           </Link>
-        </li>
-      </ul>
-    </div>
+        </div>
+        <ul>
+          <li>
+            <Link href="/">
+              <p className="text-[#f2be74]">Home</p>
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </nav>
   );
 };
 
